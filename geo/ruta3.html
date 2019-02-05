@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Documento sin t&iacute;tulo</title>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<style>
+      html, body{
+        height:100%;
+        margin: 0px;
+      }
+      #googleMap{
+        width:100%;
+        height:100%;
+      }
+    </style>
+	
+
+</head>
+
+<body>
+<div id="map_canvas" style="position: relative; overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"></div></div>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+            var map = null;
+var infoWindow = null;
+ 
+function openInfoWindow(marker) {
+    var markerLatLng = marker.getPosition();
+    infoWindow.setContent([
+        '<strong>La posicion del marcador es:</strong><br/>',
+        markerLatLng.lat(),
+        ', ',
+        markerLatLng.lng(),
+        '<br/>Arrástrame para actualizar la posición.'
+    ].join(''));
+    infoWindow.open(map, marker);
+}
+ 
+function initialize() {
+    var myLatlng = new google.maps.LatLng(20.68017,-101.35437);
+    var myOptions = {
+      zoom: 13,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+ 
+    map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+ 
+    infoWindow = new google.maps.InfoWindow();
+ 
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        draggable: true,
+        map: map,
+        title:"Ejemplo marcador arrastrable"
+    });
+        google.maps.event.addListener(marker, 'dragend', function(){ openInfoWindow(marker); });
+	google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });
+}
+ 
+$(document).ready(function() {
+    initialize();
+    gmaps_ads();
+}); 
+</script>
+</html>

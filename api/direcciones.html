@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- This stylesheet contains specific styles for displaying the map
+         on this page. Replace it with your own styles as described in the
+         documentation:
+         https://developers.google.com/maps/documentation/javascript/tutorial -->
+    <!-- <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">-->
+	  <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+		var pto1 = {lat: 10.4919, lng: -66.9225}; //comandancia GNB
+		var pto2 = {lat: 10.4952, lng: -66.9316}; //Maternidad Concepcion Palacios
+		var pto3 = {lat: 10.4857, lng: -66.9343}; //Redoma la India
+		var pto4 = {lat: 10.4843, lng: -66.8852}; //Los Chaguaramos
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: pto1,
+          zoom: 12,
+		  zoomControl: true,
+          scaleControl: false,
+		  mapTypeControl: false
+		  //disableDefaultUI: true // desabilito todos los controles
+        });
+		
+		/*
+		var imag = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        var iconox = new google.maps.Marker({
+          position: {lat: 10.4919, lng: -66.9225},
+          map: map,
+          icon: imag
+        });
+		*/
+
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+          map: map
+        });
+
+        // Set destination, origin and travel mode.
+        var request = {
+          destination: pto2,
+          origin: pto1,
+		  waypoints: [{location: pto3}, {location: pto4}],
+          travelMode: 'DRIVING'
+        };
+
+        // Pass the directions request to the directions service.
+        var directionsService = new google.maps.DirectionsService();
+        directionsService.route(request, function(response, status) {
+          if (status == 'OK') {
+            // Display the route on the map.
+            directionsDisplay.setDirections(response);
+          }
+        });
+		
+		
+      }// Fin de initMap()
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAvHwWG3DwQ79QvfwzkdEymTC6bjEmzkY&callback=initMap">
+    </script>	
+		
+  </body>
+</html>

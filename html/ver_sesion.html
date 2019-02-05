@@ -1,0 +1,29 @@
+<!DOCTYPE html> <!-- HTML5 -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Siscom Storage</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="jstorage/jstorage.js"></script>	
+</head>
+
+<body>
+<script>
+		
+		$(document).ready(function(){
+		
+			//alert($.jStorage.get("usuarioS"));
+			document.write("Usuario: "+$.jStorage.get("usuarioS")+"<br>");
+			document.write("Nombre: "+$.jStorage.get("nombreU")+"<br>");
+			//document.write("Cargo: "+$.jStorage.get("cargoS")+"<br>");
+			document.write("Nivel: "+$.jStorage.get("nivelA")+"<br>");
+			stop();
+			//finish();
+
+		}); //fin del jquery
+
+		</script>
+
+</body>
+</html>

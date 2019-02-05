@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="images/apple-touch-startup-image-640x1096.png">
+<title>Siscom Storage</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+<script>
+ function supports_html5_storage() {
+      try {
+        return 'localStorage' in window && window['localStorage'] !== null;
+      } catch (e) {
+        return false;
+      }
+    }
+    function supports_json() {
+      try {
+        return 'JSON' in window && window['JSON'] !== null;
+      } catch (e) {
+        return false;
+      }
+    }
+		
+		$(document).ready(function(){
+			//alert();
+			if (supports_html5_storage() && supports_json()) {
+				//if(localStorage["usuario"]=="undefined"){ //undefined
+				//var recibido = localStorage["usuario"];
+				if (!$.isEmptyObject(localStorage["usuarioS"])) {
+					document.write(localStorage["usuarioS"]); 
+					//document.write(localStorage["usuario"]);
+				}else{
+					document.write("NO hay nada para mostrar");
+				}
+				
+			}
+			stop();
+		}); //fin del jquery
+
+		</script>
+
+</body>
+</html>

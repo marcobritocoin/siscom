@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>PRUEBA GEO MARKERS</title>
+  <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #mapa {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+
+<body>
+<div id="mapa"></div>
+<script>
+var divMapa = document.getElementById('mapa');
+navigator.geolocation.getCurrentPosition( fn_ok, fn_mal );
+
+function fn_mal( ){ }
+
+function fn_ok( rta){
+	var lat = rta.coords.latitude;
+	var lon = rta.coords.longitude;
+
+	var gLatLon = new google.maps.LatLng( lat, lon );
+	var objConfig = {
+		zoom: 17,
+		center: gLatLon
+	}
+
+
+	var gMapa = new google.maps.Map( divMapa, objConfig );
+
+	var objConfigMarker = {
+		position: gLatLon,
+		animation: google.maps.Animation.DROP,
+		map: gMapa,
+		draggable: true,
+		title: "Usted esta Aqui"
+	}
+
+	var gMarker = = new google.maps.Marker( objConfigMarker );
+	//gMarker.setIcon( 'icon_usuario.gif' );
+
+	var gCoder = new google.maps.Geocoder();
+	var objInformacion = {
+		address: 'Corrientes 2049,Balvanera,Buenos Aires'
+	}
+
+
+	//objInformacion.address
+	gCoder.geocode ( objInformacion, fn_coder );
+
+	function fn_coder( datos ){
+		var coordenadas = datos[0].geometry.location;
+		//ob LatLong
+		var config = {
+			map: gMapa,
+			animation: google.maps.Animation.DROP,
+			position: coordenadas,
+			title: '4Tubing'
+		}
+			
+		var gMarkerDV = new google.maps.Marker( config )
+			gMarkerDV.setIcon( 'icon_edificio.png' )
+	
+	}
+
+
+	var objHTML = {
+		content: '<div>codigo html</div>'
+	}
+	
+	var gIW = new google.maps.InfoWindow( objHTML );
+
+	google.maps.event.addListener(gMarkerDV,'click',function(){
+			gIW.open( gMapa, gMarkerDV );
+		});
+		
+	//}
+
+	var objConfigDR = {
+		map: gMapa,
+		suppressMarkers: true
+	}
+
+	var objConfigDS = {
+		origin: gLatLon,
+		destination: objInformacion.address,
+		travelMode: google.maps.TravelMode.DRIVING
+	}
+	
+
+	var ds = new google.maps.DirectionsService(); // obtener coordenadas
+	var dr = new google.maps.DirectionsRenderer( objConfigDR ); // traduce coordenas a ruta visible
+
+		ds.route( objConfigDS, fnRutear );
+
+	function fnRutear( resultados, status ){
+		//mostrar la linea entre A y B
+		if( status == 'OK' ){
+			dr.setDirections( resultados );
+		}else{
+		
+			alert('Error: '+status);
+		}
+	}
+
+}
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAvHwWG3DwQ79QvfwzkdEymTC6bjEmzkY&callback=initMap">
+    </script>
+</body>
+</html>

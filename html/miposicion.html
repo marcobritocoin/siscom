@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SISCOM - Sistema de Gestion y Control de Fuerza de Ventas</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          //center: {lat: -34.397, lng: 150.644},
+		  center: {lat: 10.505, lng: -66.852},
+          zoom: 16
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+		
+		//------------------------------
+		/*
+		var id, target, option;
+		
+		function success(pos) {
+		  var crd = pos.coords;
+		
+		  if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+			console.log('Congratulation, you reach the target');
+			navigator.geolocation.clearWatch(id);
+		  }
+		};
+		
+		options = {
+		  enableHighAccuracy: false,
+		  timeout: 5000,
+		  maximumAge: 0
+		};
+		
+		id = navigator.geolocation.watchPosition(success, error, options); // Actualizar mientras cambia de posicion
+		*/
+		//-------------------------------------
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent("<b>Usted se Encuentra Aqui</b></br><b>Latitud</b>:"+position.coords.latitude+"</br><b>Longitud</b>:"+position.coords.longitude);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: El Servicio de Geolocalizacion fallo.' :
+                              'Error: Tu Navegador no soporta Geolocalizacion.');
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAvHwWG3DwQ79QvfwzkdEymTC6bjEmzkY&callback=initMap">
+    </script>
+  </body>
+</html>

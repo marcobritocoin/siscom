@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Mapa en Granada</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+      function initialize() {
+        var myLatlng = new google.maps.LatLng(37.192869,-3.613186);
+        var mapOptions = {
+          zoom: 10,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        var contentString = '<div>'
+         +'<h1>Maracena</h1>'
+         +'<p>Localidad: Maracena. 20000 habitantes</p>'
+         +'</div>';
+         
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 300
+        });
+        var myLatlng = new google.maps.LatLng(37.209277,-3.636875);
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Maracena',
+            icon: 'imagenes/arch.png'
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map,marker);
+        });
+        
+        
+        // Segundo marcador
+        var contentString2 = '<div>'
+         +'<h1>Armilla</h1>'
+         +'<p>Localidad: Armilla. 23000 habitantes</p>'
+         +'</div>';
+         
+        var infowindow2 = new google.maps.InfoWindow({
+            content: contentString2,
+            maxWidth: 300
+        });
+        var myLatlng = new google.maps.LatLng(37.141435,-3.620739);
+        var marker2 = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Armilla',
+            icon: 'imagenes/statue-2.png'
+        });
+        google.maps.event.addListener(marker2, 'click', function() {
+          infowindow2.open(map,marker2);
+        });        
+        // Tercer marcador
+        var contenidoGranada = '<div>'
+         +'<h1>Granada</h1>'
+         +'<p>Localidad: Granada. 250000 habitantes</p>'
+         +'</div>';
+         
+        var ventanaGranada = new google.maps.InfoWindow({
+            content: contenidoGranada,
+            maxWidth: 300
+        });
+        var latitudGranada = new google.maps.LatLng(37.180561,-3.602886);
+        var marcadorGranada = new google.maps.Marker({
+            position: latitudGranada,
+            map: map,
+            title: 'Granada',
+            icon: 'imagenes/rockhouse.png'
+        });
+        google.maps.event.addListener(marcadorGranada, 'click', function() {
+          ventanaGranada.open(map,marcadorGranada);
+        });
+        
+      }
+
+    </script>
+  </head>
+  <body onload="initialize()">
+      <h1>Mapa en Granada</h1>
+    <div id="map_canvas" style="width:500px;height:500px"></div>
+    <h2>Tres puntos distintos</h2>
+  </body>
+</html>

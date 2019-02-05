@@ -1,0 +1,69 @@
+<!DOCTYPE html> <!-- HTML5 -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Siscom Storage</title>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="jstorage/jstorage.js"></script>
+		<script>
+		
+		$(document).ready(function(){
+		
+			var key1   = "usuarioS";	
+			var usuario= "mbrito";
+			var key2   = "nombreU";
+			var nombre = "Ing. Marco Brito";
+			var key3   = "cargoS";
+			var cargo  = "Supervisor de Ventas";
+			var key4   = "nivelA";
+			var nivel  = 1;
+			var key5   = "vcontrol";
+			var control= 1;
+			
+			//$('#campoPrueba').val('').focus();
+			//$.jStorage.set("vcontrol", "1")
+			
+			//$.jStorage.set(key5, control, {TTL: 10000});
+			alert($.jStorage.get(key5));
+			
+			if($.jStorage.get(key5)!=1){
+				$.jStorage.set(key1, usuario, {TTL: 5000});
+				$.jStorage.set(key2, nombre, {TTL: 5000});
+				$.jStorage.set(key3, cargo, {TTL: 5000});
+				$.jStorage.set(key4, nivel, {TTL: 5000});
+				$.jStorage.set(key5, control, {TTL: 10000});
+			}
+			
+			
+		
+			$('#info').html("<p>Usuario: "+$.jStorage.get(key1)+"</p><p>Nombre: "+$.jStorage.get(key2)+"</p><p>Cargo: "+$.jStorage.get(key3)+"</p><p>Nivel de Acceso: "+$.jStorage.get(key4)+"</p><p>Duracion llave de Control: "+$.jStorage.getTTL(key5)+"</p>");
+			
+			
+		
+		}); //fin del jquery
+
+				/* 
+				$.jStorage.set(key, value, {TTL: 1000}); 	   // Setea el valor de la clave con su TTL
+				$.jStorage.set("mykey", "keyvalue");    	   // Setea el valor de la clave
+				$.jStorage.setTTL("mykey", 3000);      	       // Setea el Valor del TTL
+				value = $.jStorage.get(key)
+				value = $.jStorage.get(key, "default value")  // Devuelve el valor de la Clave
+				$.jStorage.deleteKey(key);               	   // Elimina el valor de la clave
+				ttl = $.jStorage.getTTL("mykey");        	   // Devuelve el valor del TTL
+				$.jStorage.flush()                             // Borra la cache
+				
+				var index = $.jStorage.index();
+				console.log(index); // ["key1","key2","key3"]  // Devuelve todas las claves en Uso como Array
+				
+				
+				*/
+				
+
+		</script>
+</head>
+
+<body>
+<div id="info"></div>
+</body>
+</html>
